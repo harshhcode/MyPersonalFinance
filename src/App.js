@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route, NavLink } from "react-router-dom";
+import Dashboard from "./pages/Dashboard";
+import Budgets from "./pages/Budgets";
+import Profile from "./pages/Profile";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Header />
+      <nav className="main-nav">
+        <NavLink to="/" end className={({isActive}) => isActive ? "active" : ""}>Dashboard</NavLink>
+        <NavLink to="/budgets" className={({isActive}) => isActive ? "active" : ""}>Budgets</NavLink>
+        <NavLink to="/profile" className={({isActive}) => isActive ? "active" : ""}>Profile</NavLink>
+      </nav>
+
+      <main className="container">
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/budgets" element={<Budgets />} />
+          <Route path="/profile" element={<Profile />} />
+        </Routes>
+      </main>
+
+      <Footer />
+      <ToastContainer position="top-right" autoClose={3000} />
+    </Router>
   );
 }
-
-export default App;
